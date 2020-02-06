@@ -79,29 +79,29 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 
 - Step One:
   - Ensure you have the Custom Scripts option enabled in-game in the settings
-  - If you get a corrupted file error while unzipping, update the version of your 7-zip and start over
-  - Verify, that you have fulfilled all of the requirements
-  - Verify, that you have completed all of the steps in the installation process
-  - If all of the above checks out, move to Step Two- Step Two:
-  - Rename your "Documents\Electronic Arts\The Sims 4" folder to "Documents\Electronic Arts\The Sims 4.bak"
-    - You can always recreate your existing game by deleting the "Documents\Electronic Arts\The Sims 4" folder and renaming "Documents\Electronic Arts\The Sims 4.bak" to "Documents\Electronic Arts\The Sims 4"
-  - Start Sims 4 and create a simple household with an Adult, a Teen, and a Pet (Cat or Dog, if you can)
-  - Save and exit the game
-  - Download and install the mod you are trying to get working
-  - Start the game with the household you created above
-    - Does the problem persist?
-      - Yes:
-        - Go to the next step
-      - No:
-        - You have some other mod or a bad save that is causing you problems
+  - If you get a corrupted file error while unzipping, update the version of your 7-zip and start over
+  - Verify, that you have fulfilled all of the requirements
+  - Verify, that you have completed all of the steps in the installation process
+  - If all of the above checks out, move to Step Two- Step Two:
+  - Rename your "Documents\Electronic Arts\The Sims 4" folder to "Documents\Electronic Arts\The Sims 4.bak"
+    - You can always recreate your existing game by deleting the "Documents\Electronic Arts\The Sims 4" folder and renaming "Documents\Electronic Arts\The Sims 4.bak" to "Documents\Electronic Arts\The Sims 4"
+  - Start Sims 4 and create a simple household with an Adult, a Teen, and a Pet (Cat or Dog, if you can)
+  - Save and exit the game
+  - Download and install the mod you are trying to get working
+  - Start the game with the household you created above
+    - Does the problem persist?
+      - Yes:
+        - Go to the next step
+      - No:
+        - You have some other mod or a bad save that is causing you problems
 - Step Three:
-  - Add your other mods one by one
-    - Does the problem persist?
-      - Yes:
-        - You've found the mod that causes things to break, report it to the author of that mod
-      - No:
-        - Continue adding mods one by one until the problem begins to appear
-        - If you've run out of mods to add, then it was probably just a fluke in the system.
+  - Add your other mods one by one
+    - Does the problem persist?
+      - Yes:
+        - You've found the mod that causes things to break, report it to the author of that mod
+      - No:
+        - Continue adding mods one by one until the problem begins to appear
+        - If you've run out of mods to add, then it was probably just a fluke in the system.
 - Problem Reporting Steps:
   - Follow the troubleshooting steps above BEFORE following these steps
   - Post in the thread the following details:
