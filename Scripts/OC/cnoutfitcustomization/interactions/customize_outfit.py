@@ -18,7 +18,7 @@ from sims4communitylib.utils.common_type_utils import CommonTypeUtils
 from sims4communitylib.utils.sims.common_age_utils import CommonAgeUtils
 from sims4communitylib.utils.sims.common_sim_utils import CommonSimUtils
 
-log = CommonLogRegistry.get().register_log(ModInfo.MOD_NAME, 'oc_customize_outfit_interaction')
+log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_customize_outfit_interaction')
 
 
 class OCCustomizeOutfitInteraction(CommonImmediateSuperInteraction):

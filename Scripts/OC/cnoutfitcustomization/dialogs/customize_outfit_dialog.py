@@ -24,7 +24,7 @@ from sims4communitylib.utils.localization.common_localization_utils import Commo
 from sims4communitylib.utils.localization.common_localized_string_colors import CommonLocalizedStringColor
 from ui.ui_dialog_picker import ObjectPickerRow
 
-log = CommonLogRegistry.get().register_log(ModInfo.MOD_NAME, 'oc_customize_outfit_dialog')
+log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_customize_outfit_dialog')
 
 
 class _OutfitPartsBy(CommonEnumIntBase):
@@ -37,7 +37,7 @@ class _OutfitPartsBy(CommonEnumIntBase):
 class OCCustomizeOutfitDialog:
     """ A dialog that handles outfit customization. """
     @staticmethod
-    @CommonExceptionHandler.catch_exceptions(ModInfo.MOD_NAME)
+    @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
     def open(sim_info: SimInfo):
         """ Open the dialog for customizing a sims outfit. """
         log.debug('Opening customize outfit dialog.')
@@ -87,7 +87,7 @@ class OCCustomizeOutfitDialog:
             )
         )
 
-        @CommonExceptionHandler.catch_exceptions(ModInfo.MOD_NAME)
+        @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
         def _option_picked(picked_option: _OutfitPartsBy, picker_result: CommonChoiceOutcome):
             if picked_option is None or CommonChoiceOutcome.is_error_or_cancel(picker_result):
                 return
@@ -111,7 +111,7 @@ class OCCustomizeOutfitDialog:
         def _on_close_callback():
             OCCustomizeOutfitDialog._open_outfit_parts_by(sim_info, outfit_parts_by)
 
-        @CommonExceptionHandler.catch_exceptions(ModInfo.MOD_NAME)
+        @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
         def _option_picked(picked_outfit_part_category: Tuple[OCOutfitPart], picker_result: CommonChoiceOutcome):
             if picked_outfit_part_category is None or CommonChoiceOutcome.is_error_or_cancel(picker_result):
                 OCCustomizeOutfitDialog.open(sim_info)
@@ -141,14 +141,14 @@ class OCCustomizeOutfitDialog:
         return str(CommonCASUtils.get_body_type_of_cas_part(outfit_part.part_id)).replace('BodyType.', ''),
 
     @staticmethod
-    @CommonExceptionHandler.catch_exceptions(ModInfo.MOD_NAME)
+    @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
     def _open_with_outfit_parts(sim_info: SimInfo, outfit_parts: Tuple[OCOutfitPart], on_close_callback=None):
         log.format_with_message('Opening with outfit parts.', outfit_parts=outfit_parts)
 
         def _on_close_callback():
             OCCustomizeOutfitDialog._open_with_outfit_parts(sim_info, outfit_parts, on_close_callback=on_close_callback)
 
-        @CommonExceptionHandler.catch_exceptions(ModInfo.MOD_NAME)
+        @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
         def _option_picked(picked_outfit_part: OCOutfitPart, picked_result: CommonChoiceOutcome):
             if picked_outfit_part is None or CommonChoiceOutcome.is_error_or_cancel(picked_result):
                 if on_close_callback is not None:
@@ -170,9 +170,9 @@ class OCCustomizeOutfitDialog:
         dialog.show(on_chosen=_option_picked)
 
     @staticmethod
-    @CommonExceptionHandler.catch_exceptions(ModInfo.MOD_NAME)
+    @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
     def _open_body_type_selection(sim_info: SimInfo, outfit_part: OCOutfitPart, on_close_callback=None):
-        @CommonExceptionHandler.catch_exceptions(ModInfo.MOD_NAME)
+        @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
         def _option_picked(picked_body_type: BodyType, picked_result: CommonChoiceOutcome):
             if picked_body_type is None or CommonChoiceOutcome.is_error_or_cancel(picked_result):
                 if on_close_callback is not None:

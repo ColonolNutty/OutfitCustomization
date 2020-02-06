@@ -1,5 +1,7 @@
 ## Outfit Customization (OC) by ColonolNutty
 
+For more mods like this support me at my Patreon: https://www.patreon.com/colonolnutty
+
 ### Features:
 
 - Customize clothing pieces/accessories your sim is wearing without going into CAS

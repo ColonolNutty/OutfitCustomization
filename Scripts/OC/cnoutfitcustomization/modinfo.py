@@ -5,11 +5,25 @@ https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Copyright (c) COLONOLNUTTY
 """
+from sims4communitylib.mod_support.common_mod_info import CommonModInfo
 
 
-class ModInfo:
-    """ Mod info for this mod. """
-    MOD_NAME: str = 'OC'
-    MOD_AUTHOR: str = 'ColonolNutty'
-    MOD_SCRIPT_NAME: str = 'cnoutfitcustomization'
-    FILE_PATH: str = str(__file__)
+class ModInfo(CommonModInfo):
+    """ Mod info for the Outfit Customization Mod. """
+    _FILE_PATH: str = str(__file__)
+
+    @property
+    def _name(self) -> str:
+        return 'OC'
+
+    @property
+    def _author(self) -> str:
+        return 'ColonolNutty'
+
+    @property
+    def _base_namespace(self) -> str:
+        return 'cnoutfitcustomization'
+
+    @property
+    def _file_path(self) -> str:
+        return ModInfo._FILE_PATH

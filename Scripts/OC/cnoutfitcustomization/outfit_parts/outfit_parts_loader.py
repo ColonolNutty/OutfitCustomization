@@ -9,7 +9,7 @@ from typing import Iterator, Tuple, List, Union
 
 from cnoutfitcustomization.modinfo import ModInfo
 from cnoutfitcustomization.outfit_parts.outfit_parts_collection import OCOutfitPartData
-from sims.sim_info_types import Age, Gender, Species
+from sims.sim_info_types import Age, Gender
 from sims4.resources import Types
 from protocolbuffers.Localization_pb2 import LocalizedString
 from cnoutfitcustomization.outfit_parts.outfit_part import OCOutfitPart, OCOutfitPartAvailableFor
@@ -22,7 +22,7 @@ from sims4communitylib.utils.common_resource_utils import CommonResourceUtils
 from sims4communitylib.utils.localization.common_localization_utils import CommonLocalizationUtils
 from tag import Tag
 
-log = CommonLogRegistry.get().register_log(ModInfo.MOD_NAME, 'oc_outfit_parts_loader')
+log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_outfit_parts_loader')
 
 
 class OCOutfitPartsLoader(CommonService):
@@ -91,9 +91,8 @@ class OCOutfitPartsLoader(CommonService):
         """ Add an outfit part. """
         self._loaded_outfit_parts.append(OCOutfitPart(display_name, raw_display_name, author, icon_id, part_id, available_for, part_tags, icon_key=icon_key))
 
-
     @staticmethod
-    @CommonEventRegistry.handle_events(ModInfo.MOD_NAME)
+    @CommonEventRegistry.handle_events(ModInfo.get_identity().name)
     def _oc_load_outfit_parts_on_zone_load(event_data: S4CLZoneLateLoadEvent):
         if event_data.game_loaded:
             return

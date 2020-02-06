@@ -15,7 +15,7 @@ from sims.sim_info import SimInfo
 from sims4communitylib.utils.cas.common_cas_utils import CommonCASUtils
 from sims4communitylib.utils.common_log_registry import CommonLogRegistry
 
-log = CommonLogRegistry.get().register_log(ModInfo.MOD_NAME, 'oc_outfit_part_utils')
+log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_outfit_part_utils')
 
 
 class OCOutfitPartUtils:
