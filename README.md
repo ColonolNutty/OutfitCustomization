@@ -26,8 +26,8 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 
 ### Mods that add to this:
 
-- Do let me know in the support thread or the discord if you add stuff to this mod and I can link it here!
-  - Just remember that OC is by itself a Non-Adult mod and breaks no rules, however linked content may or may not break LL rules depending on what said linked content adds to OC, OC is not responsible for the content that mod authors add to it. If linked content does break LL rules, please bring it to my attention and I will unlink it from the description
+- Do let me know in the support thread, a github issue, or the discord if you add stuff to this Mod and I will link it here!
+  - Just remember that OC is by itself a Non-Adult mod, OC and its author are not responsible for what the linked content may or may not add. If linked content breaks some law or rule, please bring it to my attention and I will remove the link for it.
   - [Crilender](https://crilender.tumblr.com/outfitcustomizationmod) - Various vanilla cas parts.
 
 ### Mod Settings (Mod Usage):
@@ -75,15 +75,15 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 
 ### Troubleshooting Steps:
 
-- If the mod is not working for you, check out [these troubleshooting steps](https://github.com/ColonolNutty/Sims4CommunityLibrary/wiki/Troubleshooting-Mods-That-Use-S4CL)
+- If the Mod is not working for you, check out [these troubleshooting steps](https://github.com/ColonolNutty/Sims4CommunityLibrary/wiki/Troubleshooting-Mods-That-Use-S4CL)
 
 ### For Modders:
 
-- For Tutorial on expanding the Outfit Customization mod and other helpful information, check out the [Wiki](https://github.com/ColonolNutty/OutfitCustomization/wiki)
+- For tutorials on adding to the Outfit Customization mod and other helpful information, check out the [Wiki](https://github.com/ColonolNutty/OutfitCustomization/wiki)
 
 ### DISCLAIMERS:
 
-- ColonolNutty and the Outfit Customization mod itself are neither responsible, liable, nor accountable for what people use this mod for, what people add to it, or how people extend from it. The accountability is entirely on the third party.
+- ColonolNutty and the Outfit Customization mod itself are neither responsible, liable, nor accountable for what people use this mod for, what people add to it, or how people extend to/from it. The responsibility, liability, and accountability is entirely on the third party. If such a mod break s a rule or law somewhere, the Outfit Customization mod does not automatically break that same law or rule.
 ​
 ### Copyright:
 
