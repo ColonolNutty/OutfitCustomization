@@ -103,25 +103,25 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
         - Continue adding mods one by one until the problem begins to appear
         - If you've run out of mods to add, then it was probably just a fluke in the system.
 - Problem Reporting Steps:
-  - Follow the troubleshooting steps above BEFORE following these steps
-  - Post in the thread the following details:
-    - Upload the following files, if they exist, they are located in the `Documents\Electronic Arts\The Sims 4` folder
-      - REQUIRED IF YOU HAVE AN ORANGE NOTIFICATION BOX IN-GAME
-      - The lastexception.txt (lastexception) file
-      - The `<Mod Name>_Messages.txt (<Mod Name>_Messages)` file
-      - The `<Mod Name>_Exceptions.txt (<Mod Name>_Exceptions)` file
-    - A detailed description of the problem (Or your best guess)
-      - The steps you take that leads you to the problem or a best guess of what you were doing at the time of the error  
-      - Example: I clicked on the fridge to make a sim grab a plate of leftovers then they put it down and immediately began doing flips.
-    - Your current Sims 4 version
-    - The sims you are having problems with (Adult, Teen, Pet, etc.)
-  - Things that will NOT help me solve your problem:
-    - A screenshot of the orange "error" text box you get in-game telling you there is a problem
-      - This does not contain any useful information other than it telling you there was a problem and a file was created
-    - A generic statement "I has problem, fix it please!"
-      - I don't know what your problem is or if it is even related to this mod (I'm not a psychiatrist or a mind reader!)
-    - A statement such as "I had a problem with your mod, so I uninstalled it, just wanted to let you know"
-      - This doesn't help anyone and is very rude (Even if you didn't mean to come off that way)
+  - Follow the troubleshooting steps above BEFORE following these steps
+  - Create an Issue or Post in the Thread the following details:
+    - Upload the following files, if they exist, they are located in the `Documents\Electronic Arts\The Sims 4` folder
+      - REQUIRED IF YOU HAVE AN ORANGE NOTIFICATION BOX IN-GAME
+      - The lastexception.txt (lastexception) file
+      - The `<Mod Name>_Messages.txt (<Mod Name>_Messages)` file
+      - The `<Mod Name>_Exceptions.txt (<Mod Name>_Exceptions)` file
+    - A detailed description of the problem (Or your best guess)
+      - The steps you take that leads you to the problem or a best guess of what you were doing at the time of the error  
+      - Example: I clicked on the fridge to make a sim grab a plate of leftovers then they put it down and immediately began doing flips.
+    - Your current Sims 4 version
+    - The sims you are having problems with (Adult, Teen, Pet, etc.)
+  - Things that will NOT help me solve your problem:
+    - A screenshot of the orange "error" text box you get in-game telling you there is a problem
+      - This does not contain any useful information other than it telling you there was a problem and a file was created
+    - A generic statement "I has problem, fix it please!"
+      - I don't know what your problem is or if it is even related to this mod (I'm not a psychiatrist or a mind reader!)
+    - A statement such as "I had a problem with your mod, so I uninstalled it, just wanted to let you know"
+      - This doesn't help anyone and is very rude (Even if you didn't mean to come off that way)
 
 ### For Modders:
 
