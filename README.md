@@ -29,7 +29,6 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 - Do let me know in the support thread or the discord if you add stuff to this mod and I can link it here!
   - Just remember that OC is by itself a Non-Adult mod and breaks no rules, however linked content may or may not break LL rules depending on what said linked content adds to OC, OC is not responsible for the content that mod authors add to it. If linked content does break LL rules, please bring it to my attention and I will unlink it from the description
   - [Crilender](https://crilender.tumblr.com/outfitcustomizationmod) - Various vanilla cas parts.
- 
 
 ### Mod Settings (Mod Usage):
 
@@ -79,11 +78,10 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 ### General Troubleshooting Steps:
 
 - Step One:
-  - Ensure you have the Custom Scripts option enabled in-game in the settings
+  - Ensure you have the Custom Scripts option enabled in-game in the settings
   - If you get a corrupted file error while unzipping, update the version of your 7-zip and start over
   - Verify, that you have fulfilled all of the requirements
   - Verify, that you have completed all of the steps in the installation process
-
   - If all of the above checks out, move to Step Two- Step Two:
   - Rename your "Documents\Electronic Arts\The Sims 4" folder to "Documents\Electronic Arts\The Sims 4.bak"
     - You can always recreate your existing game by deleting the "Documents\Electronic Arts\The Sims 4" folder and renaming "Documents\Electronic Arts\The Sims 4.bak" to "Documents\Electronic Arts\The Sims 4"
@@ -104,15 +102,14 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
       - No:
         - Continue adding mods one by one until the problem begins to appear
         - If you've run out of mods to add, then it was probably just a fluke in the system.
-        
 - Problem Reporting Steps:
   - Follow the troubleshooting steps above BEFORE following these steps
   - Post in the thread the following details:
-    - Upload the following files, if they exist, they are located in the "Documents\Electronic Arts\The Sims 4" folder
+    - Upload the following files, if they exist, they are located in the `Documents\Electronic Arts\The Sims 4` folder
       - REQUIRED IF YOU HAVE AN ORANGE NOTIFICATION BOX IN-GAME
       - The lastexception.txt (lastexception) file
-      - The <Mod Name>_Messages.txt (<Mod Name>_Messages) file
-      - The <Mod Name>_Exceptions.txt (<Mod Name>_Exceptions) file
+      - The `<Mod Name>_Messages.txt (<Mod Name>_Messages)` file
+      - The `<Mod Name>_Exceptions.txt (<Mod Name>_Exceptions)` file
     - A detailed description of the problem (Or your best guess)
       - The steps you take that leads you to the problem or a best guess of what you were doing at the time of the error  
       - Example: I clicked on the fridge to make a sim grab a plate of leftovers then they put it down and immediately began doing flips.
@@ -126,14 +123,9 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
     - A statement such as "I had a problem with your mod, so I uninstalled it, just wanted to let you know"
       - This doesn't help anyone and is very rude (Even if you didn't mean to come off that way)
 
- 
-
 ### For Modders:
 
- 
-
 - In order for you to add your own parts to this mod, you simply need to know the CAS Part Id (The decimal identifier, not the hex identifier) of your CasPart (You can use Sims 4 Studio to find this out):
-
 - Create a Snippet Tuning in your package file and have it look like the following.
 
 ```xml
@@ -186,3 +178,10 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 
 - ColonolNutty and the Outfit Customization mod itself are neither responsible, liable, nor accountable for what people use this mod for, what people add to it, or how people extend from it. The accountability is entirely on the third party.
 ​
+### Copyright:
+
+Outfit Customization is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) COLONOLNUTTY
