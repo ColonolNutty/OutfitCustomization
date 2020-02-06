@@ -71,108 +71,15 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
   - Earrings
   - Wrist
   - Rings
- 
 
- 
 
-### General Troubleshooting Steps:
+### Troubleshooting Steps:
 
-- Step One:
-  - Ensure you have the Custom Scripts option enabled in-game in the settings
-  - If you get a corrupted file error while unzipping, update the version of your 7-zip and start over
-  - Verify, that you have fulfilled all of the requirements
-  - Verify, that you have completed all of the steps in the installation process
-  - If all of the above checks out, move to Step Two- Step Two:
-  - Rename your "Documents\Electronic Arts\The Sims 4" folder to "Documents\Electronic Arts\The Sims 4.bak"
-    - You can always recreate your existing game by deleting the "Documents\Electronic Arts\The Sims 4" folder and renaming "Documents\Electronic Arts\The Sims 4.bak" to "Documents\Electronic Arts\The Sims 4"
-  - Start Sims 4 and create a simple household with an Adult, a Teen, and a Pet (Cat or Dog, if you can)
-  - Save and exit the game
-  - Download and install the mod you are trying to get working
-  - Start the game with the household you created above
-    - Does the problem persist?
-      - Yes:
-        - Go to the next step
-      - No:
-        - You have some other mod or a bad save that is causing you problems
-- Step Three:
-  - Add your other mods one by one
-    - Does the problem persist?
-      - Yes:
-        - You've found the mod that causes things to break, report it to the author of that mod
-      - No:
-        - Continue adding mods one by one until the problem begins to appear
-        - If you've run out of mods to add, then it was probably just a fluke in the system.
-- Problem Reporting Steps:
-  - Follow the troubleshooting steps above BEFORE following these steps
-  - Create an Issue or Post in the Thread the following details:
-    - Upload the following files, if they exist, they are located in the `Documents\Electronic Arts\The Sims 4` folder
-      - REQUIRED IF YOU HAVE AN ORANGE NOTIFICATION BOX IN-GAME
-      - The lastexception.txt (lastexception) file
-      - The `<Mod Name>_Messages.txt (<Mod Name>_Messages)` file
-      - The `<Mod Name>_Exceptions.txt (<Mod Name>_Exceptions)` file
-    - A detailed description of the problem (Or your best guess)
-      - The steps you take that leads you to the problem or a best guess of what you were doing at the time of the error  
-      - Example: I clicked on the fridge to make a sim grab a plate of leftovers then they put it down and immediately began doing flips.
-    - Your current Sims 4 version
-    - The sims you are having problems with (Adult, Teen, Pet, etc.)
-  - Things that will NOT help me solve your problem:
-    - A screenshot of the orange "error" text box you get in-game telling you there is a problem
-      - This does not contain any useful information other than it telling you there was a problem and a file was created
-    - A generic statement "I has problem, fix it please!"
-      - I don't know what your problem is or if it is even related to this mod (I'm not a psychiatrist or a mind reader!)
-    - A statement such as "I had a problem with your mod, so I uninstalled it, just wanted to let you know"
-      - This doesn't help anyone and is very rude (Even if you didn't mean to come off that way)
+- If the mod is not working for you, check out [these troubleshooting steps](https://github.com/ColonolNutty/Sims4CommunityLibrary/wiki/Troubleshooting-Mods-That-Use-S4CL)
 
 ### For Modders:
 
-- In order for you to add your own parts to this mod, you simply need to know the CAS Part Id (The decimal identifier, not the hex identifier) of your CasPart (You can use Sims 4 Studio to find this out):
-- Create a Snippet Tuning in your package file and have it look like the following.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!--Ensure your snippet file has this at the top-->
-<I c="OCOutfitPartsCollection" i="snippet" m="cnoutfitcustomization.outfit_parts.outfit_parts_collection" n="CN_OC_Example_Parts" s="...">
-  <L n="outfit_parts_list">
-    <U>
-      <!--A String Table Key, this will display on the part on the part in the Customize Outfit dialog.-->
-      <T n="part_display_name">0x00000000</T>
-      <!--Raw Text to denote the display name of the part, it is used when filtering, it isn't actually displayed.-->
-      <T n="part_raw_display_name">Example Name</T>
-      <!--Raw Text denoting the author of this Outfit Part.-->
-      <T n="part_author">ColonolNutty</T>
-      <!-- Numerical Identifier of an icon to use for the part. This should be pointing at a DST Image that is 56x56 pixels in size.-->
-      <T n="part_icon_id">678910</T>
-      <!--Numerical Identifier of a CAS part, the Type of the tuning file is CAS Part in Sims 4 Studio.-->
-      <T n="part_id">12345678</T>
-      <!-- Genders this part is available for. See Genders enum.-->
-	  <L n="available_for_genders">
-	    <E>FEMALE</E>
-	  </L>
-      <!-- Ages this part is available for. See Ages enum.-->
-	  <L n="available_for_ages">
-	    <E>TEEN</E>
-	    <E>YOUNGADULT</E>
-	    <E>ADULT</E>
-	    <E>ELDER</E>
-	  </L>
-      <!-- Species this part is available for. See s4cl.CommonSpecies enum.-->
-	  <L n="available_for_species">
-	    <E>HUMAN</E>
-	  </L>
-      <!-- Tags used for filtering (These are dynamic, so they can be anything, try to stick to some kind of community standard though, otherwise we'll end up with a billion of these) (example tags: OTHER, PROP, TONGUE, BODY_PART, GLASSES, etc.)-->
-	  <L n="part_tags">
-	    <E>OTHER</E>
-	    <E>BODY_PART</E>
-	  </L>
-    </U>
-    <U>
-      <!--Example of another part-->
-      <T n="part_display_name">...</T>
-      ...
-    </U>
-  </L>
-</I>
-```
+- For Tutorial on expanding the Outfit Customization mod and other helpful information, check out the [Wiki](https://github.com/ColonolNutty/OutfitCustomization/wiki)
 
 ### DISCLAIMERS:
 
