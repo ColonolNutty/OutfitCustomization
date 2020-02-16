@@ -8,6 +8,7 @@ Copyright (c) COLONOLNUTTY
 from typing import Tuple
 
 from cnoutfitcustomization.enums.interaction_identifiers import OCInteractionId
+from cnoutfitcustomization.utils.outfit_customization_setting_utils import OCSettingUtils
 from objects.script_object import ScriptObject
 from sims.sim import Sim
 from sims4communitylib.services.interactions.interaction_registration_service import CommonInteractionRegistry, \
@@ -35,4 +36,4 @@ class _OCRegisterInteractionHandler(CommonScriptObjectInteractionHandler):
             return False
         script_object: Sim = script_object
         sim_info = CommonSimUtils.get_sim_info(script_object)
-        return CommonAgeUtils.is_teen_adult_or_elder(sim_info) and not CommonSpeciesUtils.is_pet(sim_info)
+        return OCSettingUtils.is_enabled_for_outfit_customization_interactions(sim_info)

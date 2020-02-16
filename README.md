@@ -13,12 +13,9 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 ### Planned Features:
 
 - Update the Dialog to be more like a "Sim" picker visually (although you'd be picking cas parts instead)
-  - Enable Outfit Customization for children and toddlers
-  - The Bulge will NOT be enabled and OC will take no responsibility for what people decide to add after this change
-  - If you ask me to add a Crotch Bulge for them, you will be reported!
 - Add the ability to add a part to ALL outfits of a sim.
 - Add the ability to remove a part from ALL outfits of a sim.
-- Add Outfit Sets to enable equipping/unequipping entire sets of clothing
+- Add Outfit Sets to enable add and remove of entire sets of outfit parts
   - Custom Set names
   - Add/Remove cas parts from each set
   - Specify the slot to equip a cas part in
@@ -33,7 +30,7 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 ### Mod Settings (Mod Usage):
 
 - Customize Outfit
-  - Click a Sim that is of age Teen, Young Adult, Adult, or Elder
+  - Click a Sim that isn't a Baby (Babies are objects, not real Sims!)
   - Locate the Customize Outfit (OC) interaction (It shows up as a top level interaction, it has OC in the name, so you know its from this mod)
   - Choose what you want to put on/take off
   - The items you have on already show up as green.
@@ -56,7 +53,7 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 ### Requirements:
 
 - Sims 4 version 1.56.52.1020 (Realm of Magic patch) or above
-- At least version 1.2.8 of [The Sims 4 Community Library](https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/download/v1.2.8/sims4communitylib.v1.2.8.zip)
+- At least version 1.2.10 of [The Sims 4 Community Library](https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/download/v1.2.10/sims4communitylib.v1.2.10.zip)
  
 
 ### Vanilla CAS Part Progress:
@@ -77,7 +74,7 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 
 - If the Mod is not working for you, check out [these troubleshooting steps](https://github.com/ColonolNutty/Sims4CommunityLibrary/wiki/Troubleshooting-Mods-That-Use-S4CL)
 
-### For Modders:
+### For Mod Authors:
 
 - For tutorials on adding to the Outfit Customization mod and other helpful information, check out the [Wiki](https://github.com/ColonolNutty/OutfitCustomization/wiki)
 
