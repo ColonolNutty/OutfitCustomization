@@ -47,7 +47,7 @@ For more mods like this support me at my Patreon: https://www.patreon.com/colono
 
 ### Translations:
 
-- None so far.
+- [Spanish](https://www.loverslab.com/files/file/11817-spanish-translation-for-oc-outfit-customization/)
  
 
 ### Requirements:
