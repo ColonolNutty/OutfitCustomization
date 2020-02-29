@@ -27,13 +27,14 @@ log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_load
 
 
 @Command('oc.load_vanilla_cas_parts', command_type=CommandType.Live)
-def _oc_load_vanilla_cas_parts(_connection=None):
+def _oc_load_vanilla_cas_parts(_connection: int=None):
     output = CheatOutput(_connection)
     try:
         output('Loading')
         # noinspection PyUnresolvedReferences
         cas_part_resource_keys = list(sims4.resources.list(type=Types.CASPART))
         for key in cas_part_resource_keys:
+
             cas_part_id = key.instance
             body_type = CommonCASUtils.get_body_type_of_cas_part(cas_part_id)
             if body_type not in BodyType:
@@ -44,14 +45,13 @@ def _oc_load_vanilla_cas_parts(_connection=None):
             available_for_species: Tuple[CommonSpecies] = (CommonSpecies.HUMAN,)
             available_for = OCOutfitPartAvailableFor(available_for_genders, available_for_ages, available_for_species)
             OCOutfitPartsLoader.get().add_outfit_part_with_id(CommonLocalizationUtils.create_localized_string(str(cas_part_id)), str(cas_part_id), 'Maxis', key, cas_part_id, available_for, tuple(), icon_key=key)
-
     except Exception as ex:
         CommonExceptionHandler.log_exception(ModInfo.get_identity().name, 'Problem.', exception=ex)
     output('Done.')
 
 
 @Command('oc.print', command_type=CommandType.Live)
-def _oc_print(_connection=None):
+def _oc_print(_connection: int=None):
     output = CheatOutput(_connection)
     try:
         log.enable()

@@ -10,6 +10,8 @@ from sims4communitylib.dialogs.common_ok_dialog import CommonOkDialog
 from sims4communitylib.utils.sims.common_sim_name_utils import CommonSimNameUtils
 
 # noinspection PyBroadException
+from ui.ui_dialog_picker import UiObjectPicker
+
 try:
     # noinspection PyUnresolvedReferences
     from enum import Int
@@ -62,10 +64,10 @@ class OCCustomizeOutfitDialog:
             mod_identity=ModInfo.get_identity()
         )
 
-        def _reopen_dialog():
+        def _reopen_dialog() -> None:
             option_dialog.show(sim_info=sim_info)
 
-        def _on_remove_chosen():
+        def _on_remove_chosen() -> None:
             OCOutfitPartUtils.remove_outfit_parts(sim_info, tuple(OCOutfitPartUtils.get_outfit_parts(sim_info)))
             option_dialog.show(sim_info=sim_info)
 
@@ -113,13 +115,15 @@ class OCCustomizeOutfitDialog:
         )
 
         option_dialog.add_option(
-            CommonDialogActionOption (
-                CommonDialogOptionContext (
+            CommonDialogActionOption(
+                CommonDialogOptionContext(
                     OCStringId.OC_REMOVE_ALL,
                     0,
-                    icon=CommonIconUtils.load_arrow_right_icon()
+                    icon=CommonIconUtils.load_x_icon(),
+                    tooltip_text_identifier=OCStringId.OC_REMOVE_ALL
                 ),
-                on_chosen=_on_remove_chosen
+                on_chosen=_on_remove_chosen,
+                always_visible=True
             )
         )
 
@@ -129,7 +133,7 @@ class OCCustomizeOutfitDialog:
     def _open_outfit_parts_by(sim_info: SimInfo, outfit_parts_by: int, on_close_callback: Callable[..., Any]):
         log.format_with_message('Opening outfit parts by', outfit_parts_by=outfit_parts_by)
 
-        def _on_close():
+        def _on_close() -> None:
             on_close_callback()
 
         option_dialog = CommonChooseObjectOptionDialog(
@@ -139,14 +143,14 @@ class OCCustomizeOutfitDialog:
             on_close=_on_close
         )
 
-        def _reopen_dialog():
+        def _reopen_dialog() -> None:
             option_dialog.show(sim_info=sim_info)
 
         def _on_option_chosen(option_identifier: str, picked_category: Tuple[OCOutfitPart]):
             log.debug('Opening Outfit Parts By: {}'.format(option_identifier))
             OCCustomizeOutfitDialog._open_with_outfit_parts(sim_info, picked_category, on_close_callback=_reopen_dialog)
 
-        def _no_outfit_parts_found():
+        def _no_outfit_parts_found() -> None:
             CommonOkDialog(
                 OCStringId.OC_CUSTOMIZE_OUTFIT_OC,
                 OCStringId.OC_NO_OUTFIT_PARTS_FOUND
@@ -243,28 +247,11 @@ class OCCustomizeOutfitDialog:
 
     @staticmethod
     @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
-    def _open_with_outfit_parts(sim_info: SimInfo, outfit_parts: Tuple[OCOutfitPart], on_close_callback=None):
+    def _open_with_outfit_parts(sim_info: SimInfo, outfit_parts: Tuple[OCOutfitPart], on_close_callback=None, current_page: int=1):
         log.format_with_message('Opening with outfit parts.', outfit_parts=outfit_parts)
 
-        def _on_close():
+        def _on_close() -> None:
             on_close_callback()
-
-        def _reopen_dialog():
-            OCCustomizeOutfitDialog._open_with_outfit_parts(sim_info, outfit_parts, on_close_callback=on_close_callback)
-
-        def _on_option_chosen(option_identifier: str, picked_outfit_part: OCOutfitPart):
-            log.debug('Chose outfit part: {}'.format(option_identifier))
-            OCCustomizeOutfitDialog._open_body_type_selection(sim_info, picked_outfit_part, on_close_callback=_reopen_dialog)
-
-        def _on_remove_chosen():
-            OCOutfitPartUtils.remove_outfit_parts(sim_info, outfit_parts)
-            _reopen_dialog()
-
-        def _no_outfit_parts_found():
-            CommonOkDialog(
-                OCStringId.OC_CUSTOMIZE_OUTFIT_OC,
-                OCStringId.OC_NO_OUTFIT_PARTS_FOUND
-            ).show(on_acknowledged=_on_close)
 
         option_dialog = CommonChooseObjectOptionDialog(
             OCStringId.OC_CUSTOMIZE_OUTFIT_OC,
@@ -273,6 +260,23 @@ class OCCustomizeOutfitDialog:
             on_close=_on_close
         )
 
+        def _reopen_dialog() -> None:
+            OCCustomizeOutfitDialog._open_with_outfit_parts(sim_info, outfit_parts, on_close_callback=on_close_callback, current_page=option_dialog.current_page)
+
+        def _on_option_chosen(option_identifier: str, picked_outfit_part: OCOutfitPart):
+            log.debug('Chose outfit part: {}'.format(option_identifier))
+            OCCustomizeOutfitDialog._open_body_type_selection(sim_info, picked_outfit_part, on_close_callback=_reopen_dialog)
+
+        def _on_remove_chosen() -> None:
+            OCOutfitPartUtils.remove_outfit_parts(sim_info, outfit_parts)
+            _reopen_dialog()
+
+        def _no_outfit_parts_found() -> None:
+            CommonOkDialog(
+                OCStringId.OC_CUSTOMIZE_OUTFIT_OC,
+                OCStringId.OC_NO_OUTFIT_PARTS_FOUND
+            ).show(on_acknowledged=_on_close)
+
         if not outfit_parts:
             _no_outfit_parts_found()
             return
@@ -280,13 +284,15 @@ class OCCustomizeOutfitDialog:
         sorted_outfit_parts = sorted(outfit_parts, key=lambda item: item.raw_display_name)
 
         option_dialog.add_option(
-            CommonDialogActionOption (
-                CommonDialogOptionContext (
+            CommonDialogActionOption(
+                CommonDialogOptionContext(
                     OCStringId.OC_REMOVE_ALL,
                     0,
-                    icon=CommonIconUtils.load_arrow_right_icon()
+                    icon=CommonIconUtils.load_x_icon(),
+                    tooltip_text_identifier=OCStringId.OC_REMOVE_ALL
                 ),
-                on_chosen=_on_remove_chosen
+                on_chosen=_on_remove_chosen,
+                always_visible=True
             )
         )
         for outfit_part in sorted_outfit_parts:
@@ -312,15 +318,15 @@ class OCCustomizeOutfitDialog:
                 )
             )
 
-        option_dialog.show(sim_info=sim_info)
+        option_dialog.show(sim_info=sim_info, picker_type=UiObjectPicker.UiObjectPickerObjectPickerType.OBJECT_LARGE, page=current_page)
 
     @staticmethod
     @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
     def _open_body_type_selection(sim_info: SimInfo, outfit_part: OCOutfitPart, on_close_callback=None):
-        def _on_close():
+        def _on_close() -> None:
             on_close_callback()
 
-        def _reopen_dialog():
+        def _reopen_dialog() -> None:
             OCCustomizeOutfitDialog._open_body_type_selection(sim_info, outfit_part, on_close_callback=on_close_callback)
 
         def _on_option_chosen(option_identifier: str, picked_body_type: BodyType):
@@ -330,7 +336,7 @@ class OCCustomizeOutfitDialog:
             OCOutfitPartUtils.add_cas_part(sim_info, outfit_part.part_id, picked_body_type)
             _reopen_dialog()
 
-        def _on_remove_chosen():
+        def _on_remove_chosen() -> None:
             if CommonCASUtils.has_cas_part_attached(sim_info, outfit_part.part_id, body_type=None):
                 OCOutfitPartUtils.remove_cas_part(sim_info, outfit_part.part_id, None)
             _reopen_dialog()
@@ -349,9 +355,11 @@ class OCCustomizeOutfitDialog:
                     CommonDialogOptionContext(
                         OCStringId.OC_REMOVE,
                         0,
-                        icon=CommonIconUtils.load_arrow_right_icon()
+                        icon=CommonIconUtils.load_x_icon(),
+                        tooltip_text_identifier=OCStringId.OC_REMOVE
                     ),
-                    on_chosen=_on_remove_chosen
+                    on_chosen=_on_remove_chosen,
+                    always_visible=True
                 )
             )
 
@@ -395,7 +403,8 @@ class OCCustomizeOutfitDialog:
                     CommonDialogOptionContext(
                         name,
                         row_description,
-                        icon=CommonIconUtils.load_arrow_right_icon()
+                        icon=CommonIconUtils.load_arrow_right_icon(),
+                        tooltip_text_identifier=name
                     ),
                     on_chosen=_on_option_chosen
                 )

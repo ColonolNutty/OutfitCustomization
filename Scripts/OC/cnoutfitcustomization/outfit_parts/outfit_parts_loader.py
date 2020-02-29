@@ -27,12 +27,15 @@ log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_outf
 
 class OCOutfitPartsLoader(CommonService):
     """ Loads OCOutfitParts from snippet files in packages. """
-    def __init__(self):
+    def __init__(self: 'OCOutfitPartsLoader'):
         self._loaded_outfit_parts: List[OCOutfitPart] = []
 
     def _load_outfit_part(self, outfit_part_data: OCOutfitPartData) -> Union[OCOutfitPart, None]:
         display_name: LocalizedString = getattr(outfit_part_data, 'part_display_name')
         raw_display_name: str = getattr(outfit_part_data, 'part_raw_display_name')
+        if raw_display_name is None:
+            log.debug('Outfit part is missing \'raw_display_name\'.')
+            return None
         if not display_name:
             display_name = CommonLocalizationUtils.create_localized_string(raw_display_name)
         author: str = str(getattr(outfit_part_data, 'part_author'))
@@ -67,7 +70,7 @@ class OCOutfitPartsLoader(CommonService):
             self._initialize_outfit_parts()
         return tuple(self._loaded_outfit_parts)
 
-    def _initialize_outfit_parts(self):
+    def _initialize_outfit_parts(self) -> Tuple[OCOutfitPart]:
         """ Retrieve loaded outfit parts. """
         log.debug('Initializing outfit parts.')
         outfit_parts_list = []

@@ -25,3 +25,4 @@ tunings
 **/*.xml___jb_old___
 Scripts/ScriptLibrary/**/*
 .idea/inspectionProfiles/**/*
+EA_Cas_Parts/**/*

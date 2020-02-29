@@ -45,11 +45,11 @@ class OCOutfitPartAvailableFor:
         """ Determine if available for is valid. """
         return len(self.genders) > 0 or len(self.ages) > 0 or len(self.species) > 0
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return '<genders:{}, ages:{}, species:{}>'\
             .format(pformat(self.genders), pformat(self.ages), pformat(self.species))
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.__repr__()
 
 
@@ -115,13 +115,13 @@ class OCOutfitPart:
         """ Tags of the outfit part. """
         return self._part_tags
 
-    def is_valid(self):
+    def is_valid(self) -> bool:
         """ Determine if the outfit part is valid or not. """
-        return self.part_id != -1 and CommonCASUtils.is_cas_part_loaded(self.part_id) and self.available_for.is_valid()
+        return self.part_id != -1 and (self.raw_display_name is not None or self.display_name is not None) and CommonCASUtils.is_cas_part_loaded(self.part_id) and self.available_for.is_valid()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return '<display_name: {}, raw_display_name: {}, author:{}, icon_id {}, part_id:{}, available_for:{}, part_tags:{}>'\
             .format(self.display_name, self.raw_display_name, self.author, self.icon_id, self.part_id, pformat(self.available_for), pformat(self.part_tags))
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.__repr__()
