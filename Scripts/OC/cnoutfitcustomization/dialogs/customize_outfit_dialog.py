@@ -7,6 +7,9 @@ Copyright (c) COLONOLNUTTY
 """
 # noinspection PyBroadException
 from sims4communitylib.dialogs.common_ok_dialog import CommonOkDialog
+from sims4communitylib.dialogs.option_dialogs.options.objects.common_dialog_option_category import \
+    CommonDialogObjectOptionCategory
+from sims4communitylib.enums.icons_enum import CommonIconId
 from sims4communitylib.utils.sims.common_sim_name_utils import CommonSimNameUtils
 
 # noinspection PyBroadException
@@ -283,13 +286,21 @@ class OCCustomizeOutfitDialog:
 
         sorted_outfit_parts = sorted(outfit_parts, key=lambda item: item.raw_display_name)
 
+        object_categories: List[str] = list()
+        for outfit_part in sorted_outfit_parts:
+            for part_tag in outfit_part.tag_list:
+                if part_tag in object_categories:
+                    continue
+                object_categories.append(part_tag)
+
         option_dialog.add_option(
             CommonDialogActionOption(
                 CommonDialogOptionContext(
                     OCStringId.OC_REMOVE_ALL,
                     0,
                     icon=CommonIconUtils.load_x_icon(),
-                    tooltip_text_identifier=OCStringId.OC_REMOVE_ALL
+                    tooltip_text_identifier=OCStringId.OC_REMOVE_ALL,
+                    tag_list=object_categories
                 ),
                 on_chosen=_on_remove_chosen,
                 always_visible=True
@@ -303,6 +314,8 @@ class OCCustomizeOutfitDialog:
             # If outfit part is already equipped
             if CommonCASUtils.has_cas_part_attached(sim_info, part_id, body_type=None):
                 outfit_part_name = CommonLocalizationUtils.create_localized_string(CommonStringId.TEXT_WITH_GREEN_COLOR, tokens=(outfit_part_name,))
+            log.format(tag_list=outfit_part.tag_list)
+            log.format(tag_list=outfit_part.tag_list)
 
             option_dialog.add_option(
                 CommonDialogObjectOption(
@@ -312,13 +325,29 @@ class OCCustomizeOutfitDialog:
                         outfit_part_name,
                         OCStringId.OC_AUTHOR,
                         description_tokens=(author,),
-                        icon=icon
+                        icon=icon,
+                        tag_list=outfit_part.tag_list
                     ),
                     on_chosen=_on_option_chosen
                 )
             )
 
-        option_dialog.show(sim_info=sim_info, picker_type=UiObjectPicker.UiObjectPickerObjectPickerType.OBJECT_LARGE, page=current_page)
+        categories: List[CommonDialogObjectOptionCategory] = list()
+
+        for category in object_categories:
+            categories.append(
+                CommonDialogObjectOptionCategory(
+                    category,
+                    icon=CommonIconId.S4CLIB_UNFILLED_CIRCLE_ICON
+                )
+            )
+
+        option_dialog.show(
+            sim_info=sim_info,
+            picker_type=UiObjectPicker.UiObjectPickerObjectPickerType.OBJECT_LARGE,
+            page=current_page,
+            categories=categories
+        )
 
     @staticmethod
     @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)

@@ -30,9 +30,9 @@ class OCOutfitPartsQueryUtils:
         age = CommonAgeUtils.get_age(sim_info)
         if age not in outfit_part.available_for.ages:
             return False
-        gender = CommonGenderUtils.get_gender(sim_info)
-        if gender not in outfit_part.available_for.genders:
-            return False
+        # gender = CommonGenderUtils.get_gender(sim_info)
+        # if gender not in outfit_part.available_for.genders:
+        #     return False
         common_species = CommonSpecies.get_species(sim_info)
         if common_species not in outfit_part.available_for.species:
             return False

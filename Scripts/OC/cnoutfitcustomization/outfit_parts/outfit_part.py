@@ -115,6 +115,24 @@ class OCOutfitPart:
         """ Tags of the outfit part. """
         return self._part_tags
 
+    @property
+    def tag_list(self) -> Tuple[str]:
+        """ A collection of tags for the outfit part. """
+        tags = list()
+        tags.append(self.author)
+        for gender in self.available_for.genders:
+            split = str(gender).split('.')
+            tags.append(split[len(split) - 1])
+        for age in self.available_for.ages:
+            split = str(age).split('.')
+            tags.append(split[len(split) - 1])
+        for species in self.available_for.species:
+            split = str(species).split('.')
+            tags.append(split[len(split) - 1])
+        for part_tag in self.part_tags:
+            tags.append(str(part_tag))
+        return tuple(tags)
+
     def is_valid(self) -> bool:
         """ Determine if the outfit part is valid or not. """
         return self.part_id != -1 and (self.raw_display_name is not None or self.display_name is not None) and CommonCASUtils.is_cas_part_loaded(self.part_id) and self.available_for.is_valid()
