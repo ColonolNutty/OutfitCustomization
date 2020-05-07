@@ -71,7 +71,7 @@ class OCOutfitPartsLoader(CommonService):
         return tuple(self._loaded_outfit_parts)
 
     def _initialize_outfit_parts(self) -> Tuple[OCOutfitPart]:
-        """ Retrieve loaded outfit parts. """
+        """ Initialize outfit parts. """
         log.debug('Initializing outfit parts.')
         outfit_parts_list = []
         outfit_parts = self._load_outfit_parts_from_packages_gen()

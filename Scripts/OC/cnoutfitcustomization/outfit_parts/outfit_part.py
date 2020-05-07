@@ -123,12 +123,6 @@ class OCOutfitPart:
         for gender in self.available_for.genders:
             split = str(gender).split('.')
             tags.append(split[len(split) - 1])
-        for age in self.available_for.ages:
-            split = str(age).split('.')
-            tags.append(split[len(split) - 1])
-        for species in self.available_for.species:
-            split = str(species).split('.')
-            tags.append(split[len(split) - 1])
         for part_tag in self.part_tags:
             tags.append(str(part_tag))
         return tuple(tags)

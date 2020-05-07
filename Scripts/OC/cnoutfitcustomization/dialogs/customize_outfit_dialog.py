@@ -315,7 +315,6 @@ class OCCustomizeOutfitDialog:
             if CommonCASUtils.has_cas_part_attached(sim_info, part_id, body_type=None):
                 outfit_part_name = CommonLocalizationUtils.create_localized_string(CommonStringId.TEXT_WITH_GREEN_COLOR, tokens=(outfit_part_name,))
             log.format(tag_list=outfit_part.tag_list)
-            log.format(tag_list=outfit_part.tag_list)
 
             option_dialog.add_option(
                 CommonDialogObjectOption(
