@@ -8,20 +8,14 @@ Copyright (c) COLONOLNUTTY
 from typing import Tuple
 
 from cnoutfitcustomization.enums.interaction_identifiers import OCInteractionId
-from cnoutfitcustomization.utils.outfit_customization_setting_utils import OCSettingUtils
 from objects.script_object import ScriptObject
-from sims.sim import Sim
 from sims4communitylib.services.interactions.interaction_registration_service import CommonInteractionRegistry, \
     CommonInteractionType, CommonScriptObjectInteractionHandler
 from sims4communitylib.utils.common_type_utils import CommonTypeUtils
-from sims4communitylib.utils.sims.common_age_utils import CommonAgeUtils
-from sims4communitylib.utils.sims.common_sim_utils import CommonSimUtils
-from sims4communitylib.utils.sims.common_species_utils import CommonSpeciesUtils
 
 
 @CommonInteractionRegistry.register_interaction_handler(CommonInteractionType.ON_SCRIPT_OBJECT_LOAD)
 class _OCRegisterInteractionHandler(CommonScriptObjectInteractionHandler):
-    """ Register Outfit Customization interactions to appear when clicking on sims."""
     # noinspection PyMissingOrEmptyDocstring
     @property
     def interactions_to_add(self) -> Tuple[int]:
@@ -32,8 +26,4 @@ class _OCRegisterInteractionHandler(CommonScriptObjectInteractionHandler):
 
     # noinspection PyMissingOrEmptyDocstring
     def should_add(self, script_object: ScriptObject, *args, **kwargs) -> bool:
-        if not CommonTypeUtils.is_sim_instance(script_object):
-            return False
-        script_object: Sim = script_object
-        sim_info = CommonSimUtils.get_sim_info(script_object)
-        return OCSettingUtils.is_enabled_for_outfit_customization_interactions(sim_info)
+        return CommonTypeUtils.is_sim_or_sim_info(script_object)

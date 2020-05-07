@@ -10,11 +10,13 @@ from sims4communitylib.dialogs.common_ok_dialog import CommonOkDialog
 from sims4communitylib.dialogs.option_dialogs.options.objects.common_dialog_option_category import \
     CommonDialogObjectOptionCategory
 from sims4communitylib.enums.icons_enum import CommonIconId
+from sims4communitylib.logging.has_log import HasLog
+from sims4communitylib.mod_support.mod_identity import CommonModIdentity
+from sims4communitylib.utils.common_function_utils import CommonFunctionUtils
 from sims4communitylib.utils.sims.common_sim_name_utils import CommonSimNameUtils
-
-# noinspection PyBroadException
 from ui.ui_dialog_picker import UiObjectPicker
 
+# noinspection PyBroadException
 try:
     # noinspection PyUnresolvedReferences
     from enum import Int
@@ -39,11 +41,8 @@ from sims4communitylib.enums.strings_enum import CommonStringId
 from sims4communitylib.exceptions.common_exceptions_handler import CommonExceptionHandler
 from sims4communitylib.utils.cas.common_cas_utils import CommonCASUtils
 from sims4communitylib.utils.common_icon_utils import CommonIconUtils
-from sims4communitylib.utils.common_log_registry import CommonLogRegistry
 from sims4communitylib.utils.localization.common_localization_utils import CommonLocalizationUtils
 from sims4communitylib.utils.localization.common_localized_string_colors import CommonLocalizedStringColor
-
-log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_customize_outfit_dialog')
 
 
 class _OutfitPartsBy(Int):
@@ -53,30 +52,48 @@ class _OutfitPartsBy(Int):
     OUTFIT_SLOT = 3
 
 
-class OCCustomizeOutfitDialog:
+class OCCustomizeOutfitDialog(HasLog):
     """ A dialog that handles outfit customization. """
-    @staticmethod
+    def __init__(self, on_close: Callable[..., Any]=CommonFunctionUtils.noop) -> None:
+        super().__init__()
+        self._on_close = on_close
+
+    # noinspection PyMissingOrEmptyDocstring
+    @property
+    def mod_identity(self) -> CommonModIdentity:
+        return ModInfo.get_identity()
+
+    # noinspection PyMissingOrEmptyDocstring
+    @property
+    def log_identifier(self) -> str:
+        return 'oc_customize_outfit_dialog'
+
     @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
-    def open(sim_info: SimInfo):
+    def open(self, sim_info: SimInfo):
         """ Open the dialog for customizing a sims outfit. """
-        log.format_with_message('Opening customize outfit dialog.', sim=CommonSimNameUtils.get_full_name(sim_info))
+        self.log.format_with_message('Opening customize outfit dialog.', sim=CommonSimNameUtils.get_full_name(sim_info))
+
+        def _on_close(*_, **__) -> None:
+            if self._on_close is not None:
+                self._on_close()
 
         option_dialog = CommonChooseObjectOptionDialog(
             OCStringId.OC_CUSTOMIZE_OUTFIT_OC,
             0,
-            mod_identity=ModInfo.get_identity()
+            mod_identity=ModInfo.get_identity(),
+            on_close=_on_close
         )
 
         def _reopen_dialog() -> None:
-            option_dialog.show(sim_info=sim_info)
+            self.open(sim_info)
 
         def _on_remove_chosen() -> None:
             OCOutfitPartUtils.remove_outfit_parts(sim_info, tuple(OCOutfitPartUtils.get_outfit_parts(sim_info)))
             option_dialog.show(sim_info=sim_info)
 
         def _on_option_chosen(option_identifier: str, choice: int):
-            log.debug('Opening Outfit Parts: {}'.format(option_identifier))
-            OCCustomizeOutfitDialog._open_outfit_parts_by(sim_info, choice, on_close_callback=_reopen_dialog)
+            self.log.debug('Opening Outfit Parts: {}'.format(option_identifier))
+            self._open_outfit_parts_by(sim_info, choice, on_close_callback=_reopen_dialog)
 
         option_dialog.add_option(
             CommonDialogObjectOption(
@@ -132,9 +149,8 @@ class OCCustomizeOutfitDialog:
 
         option_dialog.show(sim_info=sim_info)
 
-    @staticmethod
-    def _open_outfit_parts_by(sim_info: SimInfo, outfit_parts_by: int, on_close_callback: Callable[..., Any]):
-        log.format_with_message('Opening outfit parts by', outfit_parts_by=outfit_parts_by)
+    def _open_outfit_parts_by(self, sim_info: SimInfo, outfit_parts_by: int, on_close_callback: Callable[..., Any]):
+        self.log.format_with_message('Opening outfit parts by', outfit_parts_by=outfit_parts_by)
 
         def _on_close() -> None:
             on_close_callback()
@@ -150,8 +166,8 @@ class OCCustomizeOutfitDialog:
             option_dialog.show(sim_info=sim_info)
 
         def _on_option_chosen(option_identifier: str, picked_category: Tuple[OCOutfitPart]):
-            log.debug('Opening Outfit Parts By: {}'.format(option_identifier))
-            OCCustomizeOutfitDialog._open_with_outfit_parts(sim_info, picked_category, on_close_callback=_reopen_dialog)
+            self.log.debug('Opening Outfit Parts By: {}'.format(option_identifier))
+            self._open_with_outfit_parts(sim_info, picked_category, on_close_callback=_reopen_dialog)
 
         def _no_outfit_parts_found() -> None:
             CommonOkDialog(
@@ -160,61 +176,61 @@ class OCCustomizeOutfitDialog:
             ).show(on_acknowledged=_on_close)
 
         if outfit_parts_by == _OutfitPartsBy.NONE:
-            log.debug('outfit_parts_by was NONE')
+            self.log.debug('outfit_parts_by was NONE')
             _no_outfit_parts_found()
             return
 
         outfit_parts = tuple(OCOutfitPartUtils.get_outfit_parts(sim_info))
-        log.format_with_message('Creating outfit parts by', outfit_parts_by=outfit_parts_by)
+        self.log.format_with_message('Creating outfit parts by', outfit_parts_by=outfit_parts_by)
         if len(outfit_parts) == 0:
-            log.debug('No outfit parts found!')
+            self.log.debug('No outfit parts found!')
             _no_outfit_parts_found()
             return
 
         sorted_outfit_parts = sorted(outfit_parts, key=lambda op: op.raw_display_name)
         if not sorted_outfit_parts:
-            log.debug('Failed to sort outfit parts by name')
+            self.log.debug('Failed to sort outfit parts by name')
             _no_outfit_parts_found()
             return
 
-        log.format_with_message('Outfit parts sorted.', sorted_outfit_parts=sorted_outfit_parts)
+        self.log.format_with_message('Outfit parts sorted.', sorted_outfit_parts=sorted_outfit_parts)
 
         outfit_parts_by_value_dict = {}
         for outfit_part in sorted_outfit_parts:
             outfit_part: OCOutfitPart = outfit_part
-            log.format_with_message('Looking at outfit part.', outfit_part=outfit_part)
+            self.log.format_with_message('Looking at outfit part.', outfit_part=outfit_part)
             if not CommonCASUtils.is_cas_part_loaded(outfit_part.part_id):
-                log.debug('Outfit part not loaded.')
+                self.log.debug('Outfit part not loaded.')
                 continue
-            keys = OCCustomizeOutfitDialog._get_outfit_part_key(outfit_part, outfit_parts_by=outfit_parts_by)
+            keys = self._get_outfit_part_key(outfit_part, outfit_parts_by=outfit_parts_by)
             if keys is None:
-                log.debug('No key found.')
+                self.log.debug('No key found.')
                 continue
             for key in keys:
                 str_key = str(key)
                 by_value = outfit_parts_by_value_dict.get(str_key, list())
                 by_value.append(outfit_part)
                 outfit_parts_by_value_dict[str_key] = by_value
-            log.debug('Outfit part loaded.')
+            self.log.debug('Outfit part loaded.')
 
         if len(outfit_parts_by_value_dict) == 0:
-            log.format_with_message('No outfit parts found with outfit parts by!', outfit_parts_by=outfit_parts_by, outfit_parts_by_value_dict=outfit_parts_by_value_dict)
-            log.debug('No outfit parts found!')
+            self.log.format_with_message('No outfit parts found with outfit parts by!', outfit_parts_by=outfit_parts_by, outfit_parts_by_value_dict=outfit_parts_by_value_dict)
+            self.log.debug('No outfit parts found!')
             _no_outfit_parts_found()
             return
 
-        log.format_with_message('Finished filtering outfit parts.', outfit_parts_by_value_dict=outfit_parts_by_value_dict)
+        self.log.format_with_message('Finished filtering outfit parts.', outfit_parts_by_value_dict=outfit_parts_by_value_dict)
 
         sorted_keys = sorted(outfit_parts_by_value_dict.keys())
-        log.format(sorted_keys=sorted_keys)
+        self.log.format(sorted_keys=sorted_keys)
         for key in sorted_keys:
-            log.format_with_message('Building key', key=key)
+            self.log.format_with_message('Building key', key=key)
             outfit_parts_by_value: List[OCOutfitPart] = outfit_parts_by_value_dict[key]
             if len(outfit_parts_by_value) == 0:
-                log.debug('No parts found in key.')
+                self.log.debug('No parts found in key.')
                 continue
             outfit_parts_count = str(len(outfit_parts_by_value))
-            log.format_with_message('Found outfit parts', count=outfit_parts_count)
+            self.log.format_with_message('Found outfit parts', count=outfit_parts_count)
             option_dialog.add_option(
                 CommonDialogObjectOption(
                     key,
@@ -230,16 +246,15 @@ class OCCustomizeOutfitDialog:
             )
 
         if not option_dialog.has_options():
-            log.debug('No options found in dialog.')
+            self.log.debug('No options found in dialog.')
             _no_outfit_parts_found()
             return
 
-        log.debug('Showing dialog.')
+        self.log.debug('Showing dialog.')
 
         option_dialog.show(sim_info=sim_info)
 
-    @staticmethod
-    def _get_outfit_part_key(outfit_part: OCOutfitPart, outfit_parts_by: int=_OutfitPartsBy.NONE) -> Any:
+    def _get_outfit_part_key(self, outfit_part: OCOutfitPart, outfit_parts_by: int=_OutfitPartsBy.NONE) -> Any:
         if outfit_parts_by == _OutfitPartsBy.NONE:
             return None
         if outfit_parts_by == _OutfitPartsBy.TAG:
@@ -248,10 +263,9 @@ class OCCustomizeOutfitDialog:
             return outfit_part.author,
         return str(CommonCASUtils.get_body_type_of_cas_part(outfit_part.part_id)).replace('BodyType.', ''),
 
-    @staticmethod
     @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
-    def _open_with_outfit_parts(sim_info: SimInfo, outfit_parts: Tuple[OCOutfitPart], on_close_callback=None, current_page: int=1):
-        log.format_with_message('Opening with outfit parts.', outfit_parts=outfit_parts)
+    def _open_with_outfit_parts(self, sim_info: SimInfo, outfit_parts: Tuple[OCOutfitPart], on_close_callback=None, current_page: int=1):
+        self.log.format_with_message('Opening with outfit parts.', outfit_parts=outfit_parts)
 
         def _on_close() -> None:
             on_close_callback()
@@ -264,11 +278,11 @@ class OCCustomizeOutfitDialog:
         )
 
         def _reopen_dialog() -> None:
-            OCCustomizeOutfitDialog._open_with_outfit_parts(sim_info, outfit_parts, on_close_callback=on_close_callback, current_page=option_dialog.current_page)
+            self._open_with_outfit_parts(sim_info, outfit_parts, on_close_callback=on_close_callback, current_page=option_dialog.current_page)
 
         def _on_option_chosen(option_identifier: str, picked_outfit_part: OCOutfitPart):
-            log.debug('Chose outfit part: {}'.format(option_identifier))
-            OCCustomizeOutfitDialog._open_body_type_selection(sim_info, picked_outfit_part, on_close_callback=_reopen_dialog)
+            self.log.debug('Chose outfit part: {}'.format(option_identifier))
+            self._open_body_type_selection(sim_info, picked_outfit_part, on_close_callback=_reopen_dialog)
 
         def _on_remove_chosen() -> None:
             OCOutfitPartUtils.remove_outfit_parts(sim_info, outfit_parts)
@@ -314,7 +328,7 @@ class OCCustomizeOutfitDialog:
             # If outfit part is already equipped
             if CommonCASUtils.has_cas_part_attached(sim_info, part_id, body_type=None):
                 outfit_part_name = CommonLocalizationUtils.create_localized_string(CommonStringId.TEXT_WITH_GREEN_COLOR, tokens=(outfit_part_name,))
-            log.format(tag_list=outfit_part.tag_list)
+            self.log.format(tag_list=outfit_part.tag_list)
 
             option_dialog.add_option(
                 CommonDialogObjectOption(
@@ -348,17 +362,16 @@ class OCCustomizeOutfitDialog:
             categories=categories
         )
 
-    @staticmethod
     @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity().name)
-    def _open_body_type_selection(sim_info: SimInfo, outfit_part: OCOutfitPart, on_close_callback=None):
+    def _open_body_type_selection(self, sim_info: SimInfo, outfit_part: OCOutfitPart, on_close_callback=None):
         def _on_close() -> None:
             on_close_callback()
 
         def _reopen_dialog() -> None:
-            OCCustomizeOutfitDialog._open_body_type_selection(sim_info, outfit_part, on_close_callback=on_close_callback)
+            self._open_body_type_selection(sim_info, outfit_part, on_close_callback=on_close_callback)
 
         def _on_option_chosen(option_identifier: str, picked_body_type: BodyType):
-            log.debug('Chose body type: {}'.format(option_identifier))
+            self.log.debug('Chose body type: {}'.format(option_identifier))
             if CommonCASUtils.has_cas_part_attached(sim_info, outfit_part.part_id, body_type=None):
                 OCOutfitPartUtils.remove_cas_part(sim_info, outfit_part.part_id, None)
             OCOutfitPartUtils.add_cas_part(sim_info, outfit_part.part_id, picked_body_type)
