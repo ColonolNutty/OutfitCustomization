@@ -22,7 +22,7 @@ class OCOutfitPartData(HasTunableFactory, AutoFactoryInit):
         'part_raw_display_name': Tunable(tunable_type=str, default=None),
         'part_author': Tunable(tunable_type=str, default=None),
         'part_icon_id': Tunable(tunable_type=int, default=0),
-        'part_id': Tunable(tunable_type=int, default=0),
+        'part_id': Tunable(tunable_type=int, default=-1),
         'available_for_genders': TunableEnumSet(enum_type=Gender),
         'available_for_ages': TunableEnumSet(enum_type=Age),
         'available_for_species': TunableEnumSet(enum_type=CommonSpecies),

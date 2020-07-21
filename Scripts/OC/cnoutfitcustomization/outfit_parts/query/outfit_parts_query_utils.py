@@ -11,7 +11,6 @@ from cnoutfitcustomization.outfit_parts.outfit_parts_loader import OCOutfitParts
 from sims.sim_info import SimInfo
 from sims4communitylib.enums.common_species import CommonSpecies
 from sims4communitylib.utils.sims.common_age_utils import CommonAgeUtils
-from sims4communitylib.utils.sims.common_gender_utils import CommonGenderUtils
 
 
 class OCOutfitPartsQueryUtils:
