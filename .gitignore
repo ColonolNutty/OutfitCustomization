@@ -26,3 +26,4 @@ tunings
 Scripts/ScriptLibrary/**/*
 .idea/inspectionProfiles/**/*
 EA_Cas_Parts/**/*
+Libraries/**/*
