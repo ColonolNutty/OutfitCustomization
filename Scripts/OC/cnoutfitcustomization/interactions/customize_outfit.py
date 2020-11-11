@@ -22,10 +22,6 @@ from sims4communitylib.utils.sims.common_sim_utils import CommonSimUtils
 class OCCustomizeOutfitInteraction(CommonImmediateSuperInteraction):
     """ Handles the Customize Outfit interaction."""
 
-    def __init__(self, *_, **__) -> None:
-        super().__init__(*_, **__)
-        self._customize_outfit_dialog = OCCustomizeOutfitDialog()
-
     # noinspection PyMissingOrEmptyDocstring
     @classmethod
     def get_mod_identity(cls) -> CommonModIdentity:
@@ -44,11 +40,11 @@ class OCCustomizeOutfitInteraction(CommonImmediateSuperInteraction):
             cls.get_log().debug('Failed, Target is not a Sim.')
             return TestResult.NONE
         sim_info = CommonSimUtils.get_sim_info(interaction_sim)
-        if not OCSettingUtils.is_enabled_for_outfit_customization_interactions(sim_info):
+        if not OCSettingUtils.is_enabled_for_interactions(sim_info):
             cls.get_log().debug('Failed, Active Sim is not available for Outfit Customization.')
             return TestResult.NONE
         target_sim_info = CommonSimUtils.get_sim_info(interaction_target)
-        if not OCSettingUtils.is_enabled_for_outfit_customization_interactions(target_sim_info):
+        if not OCSettingUtils.is_enabled_for_interactions(target_sim_info):
             cls.get_log().debug('Failed, Target Sim is not available for Outfit Customization.')
             return TestResult.NONE
         cls.get_log().debug('Success.')
@@ -61,5 +57,5 @@ class OCCustomizeOutfitInteraction(CommonImmediateSuperInteraction):
             self.log.debug('Failed, Target is not a sim.')
             return TestResult.NONE
         target_sim_info = CommonSimUtils.get_sim_info(interaction_target)
-        self._customize_outfit_dialog.open(target_sim_info)
+        OCCustomizeOutfitDialog(target_sim_info).open()
         return True

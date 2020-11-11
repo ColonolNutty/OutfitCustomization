@@ -14,7 +14,7 @@ class ModInfo(CommonModInfo):
 
     @property
     def _name(self) -> str:
-        return 'OC'
+        return 'Outfit Customization'
 
     @property
     def _author(self) -> str:

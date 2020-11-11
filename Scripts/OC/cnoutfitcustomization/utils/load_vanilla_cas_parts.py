@@ -23,7 +23,7 @@ from sims4communitylib.utils.common_log_registry import CommonLogRegistry
 from sims4.commands import Command, CommandType, CheatOutput
 from sims4communitylib.utils.localization.common_localization_utils import CommonLocalizationUtils
 
-log = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, 'oc_load_vanilla_cas_parts')
+log = CommonLogRegistry.get().register_log(ModInfo.get_identity(), 'oc_load_vanilla_cas_parts')
 
 
 @Command('oc.load_vanilla_cas_parts', command_type=CommandType.Live)
@@ -46,7 +46,7 @@ def _oc_load_vanilla_cas_parts(_connection: int=None):
             available_for = OCOutfitPartAvailableFor(available_for_genders, available_for_ages, available_for_species)
             OCOutfitPartsLoader.get().add_outfit_part_with_id(CommonLocalizationUtils.create_localized_string(str(cas_part_id)), str(cas_part_id), 'Maxis', key, cas_part_id, available_for, tuple(), icon_key=key)
     except Exception as ex:
-        CommonExceptionHandler.log_exception(ModInfo.get_identity().name, 'Problem.', exception=ex)
+        CommonExceptionHandler.log_exception(ModInfo.get_identity(), 'Problem.', exception=ex)
     output('Done.')
 
 
@@ -59,5 +59,5 @@ def _oc_print(_connection: int=None):
         log.format(things=dir(Dialog_pb2.UiDialogMessage))
         log.disable()
     except Exception as ex:
-        CommonExceptionHandler.log_exception(ModInfo.get_identity().name, 'Problem.', exception=ex)
+        CommonExceptionHandler.log_exception(ModInfo.get_identity(), 'Problem.', exception=ex)
     output('Done.')

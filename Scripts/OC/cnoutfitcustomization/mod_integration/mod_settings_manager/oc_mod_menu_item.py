@@ -50,11 +50,11 @@ try:
             if target is None or not CommonTypeUtils.is_sim_or_sim_info(target):
                 self.log.debug('Target is not a Sim.')
                 return False
-            if not OCSettingUtils.is_enabled_for_outfit_customization_interactions(source_sim_info):
+            if not OCSettingUtils.is_enabled_for_interactions(source_sim_info):
                 log.debug('Failed, Source Sim is not available for Outfit Customization.')
                 return False
             target_sim_info = CommonSimUtils.get_sim_info(target)
-            if not OCSettingUtils.is_enabled_for_outfit_customization_interactions(target_sim_info):
+            if not OCSettingUtils.is_enabled_for_interactions(target_sim_info):
                 self.log.debug('Failed, Target Sim is not available for Outfit Customization.')
                 return False
             self.log.debug('OC menu is available for Source Sim and Target Sim.')
@@ -70,15 +70,17 @@ try:
             **kwargs
         ):
             self.log.debug('Showing OC Customize Outfit.')
-            OCCustomizeOutfitDialog(on_close=on_close).open(source_sim_info)
+            target_sim_info = CommonSimUtils.get_sim_info(target)
+            OCCustomizeOutfitDialog(target_sim_info, on_close=on_close).open()
 
 
     S4MSMModSettingsRegistry().register_menu_item(_OCMSMMenuItem())
 
     log = CommonLogRegistry().register_log(ModInfo.get_identity(), 'oc_customize_outfit_interaction')
 
+    # noinspection PyUnusedLocal
     @CommonInjectionUtils.inject_safely_into(ModInfo.get_identity(), OCCustomizeOutfitInteraction, OCCustomizeOutfitInteraction.on_test.__name__)
-    def _kw_hide_settings_interaction(original, cls, *_, **__) -> TestResult:
+    def _oc_hide_settings_interaction(original, cls, *_, **__) -> TestResult:
         log.debug('Hiding the Customize Outfit interaction in favor of the Mod Settings Menu.')
         return TestResult.NONE
 except:
